@@ -1,0 +1,20 @@
+.subject-container {
+    margin-bottom: 10px;
+  }
+  
+  .subject-item {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  .subject-item label {
+    display: block;
+    
+  }
+  
+  .subject-item input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

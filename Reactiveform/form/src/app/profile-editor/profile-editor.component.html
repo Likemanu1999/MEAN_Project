@@ -1,0 +1,59 @@
+<form [formGroup]="profileform" (ngSubmit)="onSubmit()">
+    <label for='firstname'> first name : </label>
+    <input id=" firstname" type="text"  formControlName="firstname">
+    <div *ngIf="profileform.get('firstname')"> </div>
+    <br> <br>
+    <label for='lastname'> last name : </label>
+    <input id="lastname" type="'text"  formControlName="lastname">
+    <div *ngIf="profileform.get('lastname')"> </div>
+        <h3> Address : </h3>
+        <label for="street"> street : </label>
+        <input id="street" type="text"  formControlName="street">
+        <div *ngIf="profileform.get('street')"> </div>
+        <br> <br>
+        <label for="city"> city : </label>
+        <input id="city" type="text"   formControlName="city">
+        <div *ngIf="profileform.get('city')"> </div>
+        <br> <br>
+        <label for="email"> email : </label>
+        <input id="email" type="text" placeholder="xyz@abc.com"  formControlName="email">
+        <div *ngIf="profileform.get('email')"> </div>       
+        <br> <br>
+        <label for="mobile"> mobile : </label>
+        <input id="mobile" type="text"  placeholder="01234 56789" pattern="[0-9]{5} [0-9]{5}" formControlName="mobile" >
+        <div *ngIf="profileform.get('mobile')"> </div>
+      <br>
+      <label>Profile Picture:</label>
+      <input type="file" (change)="onFileChange($event)" accept="image/*">
+      <div *ngIf="profileform.get('picture')"> </div><br><br>
+    <p-button type="submit" [disabled]="!profileform.valid" > Submit </p-button>
+</form>
+
+
+<h2>Subject Marks and Average Calculator</h2>
+<form  (ngSubmit)="calculateAverage()">
+  <div *ngFor="let subject of subjects" class="subject-container">
+    <div class="subject-item">
+      <label>{{ subject }}</label>
+      <input type="number" [(ngModel)]="subjectMarks[subject]" min="0" max="100" [ngModelOptions]="{ standalone: true }">
+    </div>
+  </div>
+  <button type="submit">Calculate Average</button>
+</form>
+<p *ngIf="average">Average: {{ average }}</p>
+
+ <!-- <form (ngSubmit)="submitForm()">
+          <label for="email">Email:</label>
+          <input id="email" type="text" [(ngModel)]="email" name="email" formControlName="email">
+          <div *ngIf="profileform.get('email')"> </div>
+          <div *ngIf="isEmailSubmitted">
+            <label for="otp">OTP:</label>
+            <input id="otp" type="text" [(ngModel)]="otp" name="otp">
+          </div>
+          <button type="submit" *ngIf="!isEmailSubmitted">Send OTP</button>
+          <button type="submit" *ngIf="isEmailSubmitted">Verify OTP</button>
+        </form> -->
+
+
+
+
