@@ -1,59 +1,69 @@
-<form [formGroup]="profileform" (ngSubmit)="onSubmit()">
-    <label for='firstname'> first name : </label>
-    <input id=" firstname" type="text"  formControlName="firstname">
-    <div *ngIf="profileform.get('firstname')"> </div>
-    <br> <br>
-    <label for='lastname'> last name : </label>
-    <input id="lastname" type="'text"  formControlName="lastname">
-    <div *ngIf="profileform.get('lastname')"> </div>
-        <h3> Address : </h3>
-        <label for="street"> street : </label>
-        <input id="street" type="text"  formControlName="street">
-        <div *ngIf="profileform.get('street')"> </div>
-        <br> <br>
-        <label for="city"> city : </label>
-        <input id="city" type="text"   formControlName="city">
-        <div *ngIf="profileform.get('city')"> </div>
-        <br> <br>
-        <label for="email"> email : </label>
-        <input id="email" type="text" placeholder="xyz@abc.com"  formControlName="email">
-        <div *ngIf="profileform.get('email')"> </div>       
-        <br> <br>
-        <label for="mobile"> mobile : </label>
-        <input id="mobile" type="text"  placeholder="01234 56789" pattern="[0-9]{5} [0-9]{5}" formControlName="mobile" >
-        <div *ngIf="profileform.get('mobile')"> </div>
-      <br>
+<h1 style="justify-content: center; display: flex">Login Form</h1>
+<div class="container">
+  <fieldset>
+    <form [formGroup]="profileform" (ngSubmit)="onSubmit()">
+      <label for="firstname"> first name : </label>
+      <input id=" firstname" type="text" formControlName="firstname" />
+      <div *ngIf="profileform.get('firstname')"></div>
+      <br />
+      <label for="lastname"> last name : </label>
+      <input id="lastname" type="'text" formControlName="lastname" />
+      <div *ngIf="profileform.get('lastname')"></div>
+      <h3>Address :</h3>
+      <label for="street"> street : </label>
+      <input id="street" type="text" formControlName="street" />
+      <div *ngIf="profileform.get('street')"></div>
+      <br />
+      <label for="city"> city : </label>
+      <input id="city" type="text" formControlName="city" />
+      <div *ngIf="profileform.get('city')"></div>
+      <br />
+      <label for="email"> email : </label>
+      <input id="email" type="text" placeholder="xyz@abc.com" formControlName="email" />
+      <!-- <div *ngIf="profileform.get('email')"></div> -->
+      <div *ngIf="profileform.get('email')?.invalid && profileform.get('email')?.touched" class="error-message">
+        <div *ngIf="profileform.get('email')?.hasError('required')">Email is required.</div>
+        <div *ngIf="profileform.get('email')?.hasError('email')">Invalid email format.</div>
+      </div>
+      <br />
+      <br />
+      <label for="mobile"> mobile : </label>
+      <input id="mobile" type="text" placeholder="01234567890" pattern="[0-9]{5} [0-9]{5}" formControlName="mobile" />
+      <!-- <div *ngIf="profileform.get('mobile')"></div> -->
+      <div *ngIf="profileform.get('mobile')?.invalid && profileform.get('mobile')?.touched" class="error-message">
+        <div *ngIf="profileform.get('mobile')?.hasError('required')">Mobile is required.</div>
+        <div *ngIf="profileform.get('mobile')?.hasError('invalidMobile')">Invalid mobile format. Use format
+          "0123456789".</div>
+      </div>
+      <br /> <br />
       <label>Profile Picture:</label>
-      <input type="file" (change)="onFileChange($event)" accept="image/*">
-      <div *ngIf="profileform.get('picture')"> </div><br><br>
-    <p-button type="submit" [disabled]="!profileform.valid" > Submit </p-button>
-</form>
+      <input type="file" (change)="onFileChange($event)" accept="image/*" />
+      <div *ngIf="profileform.get('picture')"></div>
+      <br />
+      <p-button type="submit">
+        Submit
+      </p-button>
+    </form>
 
-
-<h2>Subject Marks and Average Calculator</h2>
-<form  (ngSubmit)="calculateAverage()">
-  <div *ngFor="let subject of subjects" class="subject-container">
-    <div class="subject-item">
-      <label>{{ subject }}</label>
-      <input type="number" [(ngModel)]="subjectMarks[subject]" min="0" max="100" [ngModelOptions]="{ standalone: true }">
+    <h2>Subject Marks and Average Calculator</h2>
+    <form (ngSubmit)="calculateAverage()" *ngIf="showSubjects">
+      <div *ngFor="let subject of subjects" class="subject-container">
+        <div class="subject-item">
+          <label>{{ subject }}</label>
+          <input type="number" [(ngModel)]="subjectMarks[subject]" min="0" max="100"
+            [ngModelOptions]="{ standalone: true }" />
+        </div>
+      </div>
+      <button type="submit">Calculate Average</button>
+    </form>
+    <p *ngIf="average">Average: {{ average }}</p>
+    <button (click)="showSubjects = true" *ngIf="!showSubjects">Calculate average</button>
+    <div *ngIf="showSubjects">
+      <h3>User Input Values:</h3>
+      <ul>
+        <li *ngFor="let subject of subjects">{{ subject }}: {{ subjectMarks[subject] }}</li>
+      </ul>
     </div>
-  </div>
-  <button type="submit">Calculate Average</button>
-</form>
-<p *ngIf="average">Average: {{ average }}</p>
 
- <!-- <form (ngSubmit)="submitForm()">
-          <label for="email">Email:</label>
-          <input id="email" type="text" [(ngModel)]="email" name="email" formControlName="email">
-          <div *ngIf="profileform.get('email')"> </div>
-          <div *ngIf="isEmailSubmitted">
-            <label for="otp">OTP:</label>
-            <input id="otp" type="text" [(ngModel)]="otp" name="otp">
-          </div>
-          <button type="submit" *ngIf="!isEmailSubmitted">Send OTP</button>
-          <button type="submit" *ngIf="isEmailSubmitted">Verify OTP</button>
-        </form> -->
-
-
-
-
+  </fieldset>
+</div>

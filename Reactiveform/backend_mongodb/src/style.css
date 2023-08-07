@@ -1,0 +1,28 @@
+body{
+    background-color: #fff;
+    
+    
+    }
+    .start{
+        border-radius: 300px;
+    
+    }
+    
+    
+    .container{
+        justify-content: center;
+        display: flex;
+      
+    }
+    
+    .navbar{
+      background-color: rgb(	66 103 178);
+      width: 100%;
+    
+    
+    }
+    #hey{
+    
+        background-color: rgb(	66 103 178)	;
+        color:black;
+    }

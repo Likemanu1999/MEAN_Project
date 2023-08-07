@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { FormService } from '../forms.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -14,56 +14,56 @@ export class ProfileEditorComponent implements OnInit {
 	public mode = 'create';
 	public formId: any;
 	profileform!: FormGroup;
-	email: string = '';
-    // otp: string = '';
-    // isEmailSubmitted: boolean = false;
+	email: string = '';	
+	showSubjects = false;
+	subjects: string[] = ['Maths', 'Science', 'History', 'English', 'Computer'];
+	subjectMarks: { [subject: string]: number } = {};
+	average!: number;
 
-	subjects: string[] = ['Marathi', 'Hindi', 'Math', 'Science', 'English'];
-	subjectMarks: { [key: string]: number } = {};
-    average: number = 0;
+	calculateAverage() {
+		const totalMarks = Object.values(this.subjectMarks).reduce((sum, mark) => sum + mark, 0);
+		this.average = totalMarks / this.subjects.length;
+	}
 
-  calculateAverage() {
-  
-	const marksArray = Object.values(this.subjectMarks);
-    const totalMarks = marksArray.reduce((sum, mark) => sum + mark, 0);
-    this.average = totalMarks / marksArray.length;   
-  }
+	onFileChange(event: Event) {
+		const inputElement = event.target as HTMLInputElement;
+		if (inputElement.files && inputElement.files.length) {
+			const file = inputElement.files[0];
+			this.profileform.patchValue({ picture: file });
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+		}
+	}
 
-//   submitForm() {
-//     if (!this.isEmailSubmitted) {      
-//       this.otp = '1234';
-//       this.isEmailSubmitted = true;
-//     } else {     
-//       console.log('Entered OTP:', this.otp);
-//     }
-//   }
+	showSubjectInputs() {
+		this.showSubjects = true;
+	}
+
 
 
 	@Output() formCreated = new EventEmitter();
-	constructor(public formService: FormService , public route : ActivatedRoute ) { }
+	constructor(public formService: FormService, public route: ActivatedRoute, private fb: FormBuilder) { }
 
 	ngOnInit() {
-		this.profileform = new FormGroup({
+		// this.profileform = new FormGroup({
+		this.profileform = this.fb.group({
 			firstname: new FormControl(''),
 			lastname: new FormControl(''),
 			street: new FormControl(''),
 			city: new FormControl(''),
-			email: new FormControl(''),
-			mobile: new FormControl(''),
+			email: ['', [Validators.required, Validators.email]],
+			mobile: ['', [Validators.required]],
 			picture: new FormControl(''),
-			average : new FormControl(''),
+			average: new FormControl(''),
 		});
 	}
 
 	onSubmit() {
-		console.log(this.profileform);
-		if (this.profileform.invalid) {
-			return;
-		}
+		console.log("This is data", this.profileform);
 		if (this.mode === 'create') {
-			this.formService.addForm(this.formId, this.profileform.value.firstname, this.profileform.value.lastname, this.profileform.value.street, this.profileform.value.city, this.profileform.value.email, this.profileform.value.mobile,this.profileform.value.picture, this.profileform.value.average);
+			this.formService.addForm(this.formId, this.profileform.value.firstname, this.profileform.value.lastname, this.profileform.value.street, this.profileform.value.city, this.profileform.value.email, this.profileform.value.mobile, this.profileform.value.picture, this.profileform.value.average);
 		} else {
-			this.formService.updateForm(this.formId, this.profileform.value.firstname, this.profileform.value.lastname, this.profileform.value.street, this.profileform.value.city, this.profileform.value.email, this.profileform.value.mobile,this.profileform.value.picture,this.profileform.value.average);
+			this.formService.updateForm(this.formId, this.profileform.value.firstname, this.profileform.value.lastname, this.profileform.value.street, this.profileform.value.city, this.profileform.value.email, this.profileform.value.mobile, this.profileform.value.picture, this.profileform.value.average);
 		}
 		this.profileform.reset();
 	}

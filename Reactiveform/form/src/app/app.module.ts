@@ -9,6 +9,7 @@ import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
 import{HttpClientModule} from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { Observable } from 'rxjs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

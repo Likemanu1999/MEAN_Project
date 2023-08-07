@@ -7,5 +7,5 @@ export interface Form {
   email : string;
   mobile : string;
   picture : string;
-  average: string
+  average: string;
  }

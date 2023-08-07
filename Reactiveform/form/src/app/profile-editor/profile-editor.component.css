@@ -17,4 +17,107 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-  
+
+ body{
+    background-color: #fff;
+    }
+    .start{
+        border-radius: 10px; 
+    }
+    .container{
+        justify-content:center;
+        display: flex;             
+    } 
+   
+    .navbar{
+      background-color: rgb(	66 103 178);
+      width: 100%;  
+    }
+    #hey{
+    
+        background-color: rgb(	66 103 178)	;
+        color:black;
+    } 
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+
+
+    form {
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: #fff; 
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    
+
+button[type="submit"] {
+  background-color: #4CAF50; 
+  color: #fff; 
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #4CAF50; 
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+}
+
+.subject-container {
+  margin-bottom: 10px;
+}
+
+.subject-item label {
+  display: inline-block;
+  width: 120px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
